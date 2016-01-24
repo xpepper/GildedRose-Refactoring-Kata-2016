@@ -15,7 +15,7 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void generic_items_have_quality_decreasing_by_one_for_each_inventory_update() {
+    public void at_the_end_of_each_day_the_system_lowers_both_values_for_every_item() {
         app.add(new Item("a generic item", 1, 2));
 
         assertEquals(1, app.item(0).sellIn);
