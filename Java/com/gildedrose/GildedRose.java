@@ -15,9 +15,17 @@ class GildedRose {
     }
 
     public void updateInventory() {
-        for (Item eachItem: items) {
+        for (Item eachItem : items) {
             update(eachItem);
         }
+    }
+
+    Item item(int index) {
+        return items.get(index);
+    }
+
+    void add(Item item) {
+        items.add(item);
     }
 
     private void update(Item eachItem) {
@@ -69,9 +77,5 @@ class GildedRose {
                 }
             }
         }
-    }
-
-    void add(Item item) {
-        items.add(item);
     }
 }

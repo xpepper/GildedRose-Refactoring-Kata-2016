@@ -18,13 +18,13 @@ public class GildedRoseTest {
     public void generic_items_have_quality_decreasing_by_one_for_each_inventory_update() {
         app.add(new Item("a generic item", 1, 2));
 
-        assertEquals(1, app.items.get(0).sellIn);
-        assertEquals(2, app.items.get(0).quality);
+        assertEquals(1, app.item(0).sellIn);
+        assertEquals(2, app.item(0).quality);
 
         app.updateInventory();
 
-        assertEquals(1-1, app.items.get(0).sellIn);
-        assertEquals(2-1, app.items.get(0).quality);
+        assertEquals(1-1, app.item(0).sellIn);
+        assertEquals(2-1, app.item(0).quality);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class GildedRoseTest {
 
         app.updateInventory();
 
-        assertEquals(0, app.items.get(0).quality);
+        assertEquals(0, app.item(0).quality);
     }
 
 }
