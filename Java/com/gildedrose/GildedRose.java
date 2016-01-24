@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class GildedRose {
-    List<Item> items;
+    private List<Item> items;
 
     public GildedRose() {
         this(new ArrayList<Item>());
