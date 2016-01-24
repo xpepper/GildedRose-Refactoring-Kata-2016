@@ -36,4 +36,13 @@ public class GildedRoseTest {
         assertEquals(0, app.item(0).quality);
     }
 
+    @Test
+    public void once_the_sell_by_date_has_passed_quality_degrades_twice_as_fast() {
+        app.add(new Item("a generic item", 0, 2));
+
+        app.updateInventory();
+
+        assertEquals(0, app.item(0).quality);
+    }
+
 }
