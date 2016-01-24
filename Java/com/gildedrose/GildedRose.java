@@ -1,9 +1,14 @@
 package com.gildedrose;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class GildedRose {
     List<Item> items;
+
+    public GildedRose() {
+        this(new ArrayList<Item>());
+    }
 
     public GildedRose(List<Item> items) {
         this.items = items;
@@ -64,5 +69,9 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    void add(Item item) {
+        items.add(item);
     }
 }
