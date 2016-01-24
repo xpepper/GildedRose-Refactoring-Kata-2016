@@ -2,15 +2,23 @@ package com.gildedrose;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class GildedRoseTest {
 
+    private GildedRose app;
+    private Item[] items;
+
+    @Before
+    public void setup() {
+        items = new Item[1];
+        app = new GildedRose(items);
+    }
+
     @Test
     public void generic_items_have_quality_decreasing_by_one_for_each_inventory_update() {
-        Item[] items = new Item[] { new Item("foo", 1, 2) };
-
-        GildedRose app = new GildedRose(items);
+        items[0] = new Item("a generic item", 1, 2);
 
         assertEquals(1, app.items[0].sellIn);
         assertEquals(2, app.items[0].quality);
@@ -23,9 +31,7 @@ public class GildedRoseTest {
 
     @Test
     public void the_quality_of_an_item_is_never_negative() {
-        Item[] items = new Item[] { new Item("foo", 1, 0) };
-
-        GildedRose app = new GildedRose(items);
+        items[0] = new Item("a generic item", 1, 0);
 
         app.updateInventory();
 
