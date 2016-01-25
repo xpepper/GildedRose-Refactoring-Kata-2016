@@ -42,11 +42,11 @@ public class GildedRoseTest {
 
         app.updateInventory();
 
-        assertEquals(0, firstItem().quality);
+        assertEquals(2 - 2, firstItem().quality);
     }
 
     @Test
-    public void AgedBrie_increases_in_Quality_the_older_it_gets() throws Exception {
+    public void AgedBrie_increases_in_quality_the_older_it_gets() throws Exception {
         Item agedBrie = new ItemBuilder("Aged Brie").quality(2).sellIn(1).build();
         app.add(agedBrie);
 
