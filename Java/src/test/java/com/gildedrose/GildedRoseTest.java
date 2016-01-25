@@ -46,13 +46,23 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void AgedBrie_actually_increases_in_Quality_the_older_it_gets() throws Exception {
+    public void AgedBrie_increases_in_Quality_the_older_it_gets() throws Exception {
         Item agedBrie = new ItemBuilder("Aged Brie").quality(2).sellIn(1).build();
         app.add(agedBrie);
 
         app.updateInventory();
 
         assertEquals(2 + 1, firstItem().quality);
+    }
+
+    @Test
+    public void AgedBrie_quality_is_never_more_than_50() throws Exception {
+        Item agedBrie = new ItemBuilder("Aged Brie").quality(50).sellIn(1).build();
+        app.add(agedBrie);
+
+        app.updateInventory();
+
+        assertEquals(50, firstItem().quality);
     }
 
     @Test
