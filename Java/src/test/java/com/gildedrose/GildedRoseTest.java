@@ -55,6 +55,17 @@ public class GildedRoseTest {
         assertEquals(2 + 1, firstItem().quality);
     }
 
+    @Test
+    public void Sulfuras_never_has_to_be_sold_or_decreases_in_Quality() throws Exception {
+        Item sulfuras = new ItemBuilder("Sulfuras, Hand of Ragnaros").quality(80).sellIn(100).build();
+        app.add(sulfuras);
+
+        app.updateInventory();
+
+        assertEquals(80, firstItem().quality);
+        assertEquals(100, firstItem().sellIn);
+    }
+
     private Item firstItem() {
         return app.item(0);
     }
