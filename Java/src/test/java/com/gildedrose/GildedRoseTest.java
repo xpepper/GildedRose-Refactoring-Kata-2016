@@ -46,7 +46,7 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void AgedBrie_increases_in_quality_the_older_it_gets() throws Exception {
+    public void aged_brie_increases_in_quality_the_older_it_gets() throws Exception {
         Item agedBrie = new ItemBuilder("Aged Brie").quality(2).sellIn(1).build();
         app.add(agedBrie);
 
@@ -56,7 +56,7 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void AgedBrie_quality_is_never_more_than_50() throws Exception {
+    public void aged_brie_quality_is_never_more_than_50() throws Exception {
         Item agedBrie = new ItemBuilder("Aged Brie").quality(50).sellIn(1).build();
         app.add(agedBrie);
 
@@ -66,7 +66,7 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void Sulfuras_never_has_to_be_sold_or_decreases_in_Quality() throws Exception {
+    public void sulfuras_never_has_to_be_sold_or_decreases_in_quality() throws Exception {
         Item sulfuras = new ItemBuilder("Sulfuras, Hand of Ragnaros").quality(80).sellIn(100).build();
         app.add(sulfuras);
 
@@ -74,6 +74,56 @@ public class GildedRoseTest {
 
         assertEquals(80, firstItem().quality);
         assertEquals(100, firstItem().sellIn);
+    }
+
+    @Test
+    public void backstage_passes_increases_in_quality_by_1_when_there_are_more_than_10_days() throws Exception {
+        Item backstagePasses = new ItemBuilder("Backstage passes to a TAFKAL80ETC concert").quality(2).sellIn(11).build();
+        app.add(backstagePasses);
+
+        app.updateInventory();
+
+        assertEquals(2 + 1, firstItem().quality);
+    }
+
+    @Test
+    public void backstage_passes_increases_in_quality_by_2_when_there_are_10_days_or_less() throws Exception {
+        Item backstagePasses = new ItemBuilder("Backstage passes to a TAFKAL80ETC concert").quality(3).sellIn(10).build();
+        app.add(backstagePasses);
+
+        app.updateInventory();
+
+        assertEquals(3 + 2, firstItem().quality);
+    }
+
+    @Test
+    public void backstage_passes_increases_in_quality_by_3_when_there_are_5_days_or_less() throws Exception {
+        Item backstagePasses = new ItemBuilder("Backstage passes to a TAFKAL80ETC concert").quality(2).sellIn(5).build();
+        app.add(backstagePasses);
+
+        app.updateInventory();
+
+        assertEquals(2 + 3, firstItem().quality);
+    }
+
+    @Test
+    public void backstage_passes_quality_is_never_more_than_50() throws Exception {
+        Item backstagePasses = new ItemBuilder("Backstage passes to a TAFKAL80ETC concert").quality(50).sellIn(11).build();
+        app.add(backstagePasses);
+
+        app.updateInventory();
+
+        assertEquals(50, firstItem().quality);
+    }
+
+    @Test
+    public void backstage_passes_quality_drop_to_zero_after_the_concert() throws Exception {
+        Item backstagePasses = new ItemBuilder("Backstage passes to a TAFKAL80ETC concert").quality(4).sellIn(0).build();
+        app.add(backstagePasses);
+
+        app.updateInventory();
+
+        assertEquals(0, firstItem().quality);
     }
 
     private Item firstItem() {
