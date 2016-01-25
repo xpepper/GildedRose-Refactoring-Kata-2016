@@ -3,6 +3,7 @@ package com.gildedrose;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class GildedRoseTest {
@@ -48,6 +49,16 @@ public class GildedRoseTest {
     @Test
     public void aged_brie_increases_in_quality_the_older_it_gets() throws Exception {
         Item agedBrie = new ItemBuilder("Aged Brie").quality(2).sellIn(1).build();
+        app.add(agedBrie);
+
+        app.updateInventory();
+
+        assertEquals(2 + 1, firstItem().quality);
+    }
+
+    @Test @Ignore //TODO: is this a wrong case or a bug?
+    public void aged_brie_increases_in_quality_even_when_the_sell_by_date_has_passed() throws Exception {
+        Item agedBrie = new ItemBuilder("Aged Brie").quality(2).sellIn(-1).build();
         app.add(agedBrie);
 
         app.updateInventory();
