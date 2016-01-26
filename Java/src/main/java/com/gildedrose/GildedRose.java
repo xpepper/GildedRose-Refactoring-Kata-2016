@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.gildedrose.item.AgeBrieUpdater;
+import com.gildedrose.item.AgedBrieUpdater;
 import com.gildedrose.item.BackstagePassesUpdater;
 import com.gildedrose.item.ConjuredUpdater;
 import com.gildedrose.item.GenericItemUpdater;
@@ -40,16 +40,19 @@ class GildedRose {
         HashMap<String, ItemUpdater> itemUpdaters = new HashMap<>();
         itemUpdaters.put("Sulfuras, Hand of Ragnaros", new NullUpdater(item));
         itemUpdaters.put("Backstage passes to a TAFKAL80ETC concert", new BackstagePassesUpdater(item));
-        itemUpdaters.put("Aged Brie", new AgeBrieUpdater(item));
+        itemUpdaters.put("Aged Brie", new AgedBrieUpdater(item));
         itemUpdaters.put("Conjured", new ConjuredUpdater(item));
 
-        ItemUpdater updater = itemUpdaters.get(item.name);
-        if (updater != null) {
-            updater.update();
-        } else {
-            new GenericItemUpdater(item).update();
-        }
+        ItemUpdater updater = getFrom(itemUpdaters, item.name, new GenericItemUpdater(item));
+        updater.update();
+    }
 
+    private ItemUpdater getFrom(HashMap<String, ItemUpdater> itemUpdaters, String string, GenericItemUpdater fallback) {
+        ItemUpdater updater = itemUpdaters.get(string);
+        if (updater == null) {
+            updater = fallback;
+        }
+        return updater;
     }
 
 }
