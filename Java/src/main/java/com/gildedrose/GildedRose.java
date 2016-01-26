@@ -1,7 +1,14 @@
 package com.gildedrose;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import com.gildedrose.item.AgeBrieUpdater;
+import com.gildedrose.item.BackstagePassesUpdater;
+import com.gildedrose.item.GenericItemUpdater;
+import com.gildedrose.item.ItemUpdater;
+import com.gildedrose.item.NullUpdater;
 
 class GildedRose {
     private List<Item> items;
@@ -20,69 +27,27 @@ class GildedRose {
         }
     }
 
-    Item item(int index) {
+    public Item item(int index) {
         return items.get(index);
     }
 
-    void add(Item item) {
+    public void add(Item item) {
         items.add(item);
     }
 
     private void update(Item item) {
-        if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            return;
+        HashMap<String, ItemUpdater> itemUpdaters = new HashMap<>();
+        itemUpdaters.put("Sulfuras, Hand of Ragnaros", new NullUpdater(item));
+        itemUpdaters.put("Backstage passes to a TAFKAL80ETC concert", new BackstagePassesUpdater(item));
+        itemUpdaters.put("Aged Brie", new AgeBrieUpdater(item));
+
+        ItemUpdater updater = itemUpdaters.get(item.name);
+        if (updater != null) {
+            updater.update();
+        } else {
+            new GenericItemUpdater(item).update();
         }
 
-        if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            if (item.sellIn > 10) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
-            }
-
-            if (item.sellIn > 5 && item.sellIn <= 10) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 2;
-                }
-            }
-
-            if (item.sellIn <= 5) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 3;
-                }
-            }
-
-            if (item.sellIn <= 0) {
-                item.quality = 0;
-            }
-
-            item.sellIn = item.sellIn - 1;
-            return;
-        }
-
-        if (item.name.equals("Aged Brie")) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
-
-            if (item.sellIn <= 0) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
-            }
-
-            item.sellIn = item.sellIn - 1;
-            return;
-        }
-
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
-        }
-        if (item.sellIn <= 0) {
-            if (item.quality > 0) {
-                item.quality = item.quality - 1;
-            }
-        }
-        item.sellIn = item.sellIn - 1;
     }
+
 }
