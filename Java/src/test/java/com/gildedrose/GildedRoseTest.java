@@ -138,6 +138,27 @@ public class GildedRoseTest {
         assertEquals(0, firstItem().quality);
     }
 
+    @Test
+    public void conjured_items_degrade_in_quality_twice_as_fast_as_normal_items() {
+        Item conjuredItem = new ItemBuilder("Conjured").quality(4).sellIn(1).build();
+        app.add(conjuredItem);
+
+        app.updateInventory();
+
+        assertEquals(1 - 1, firstItem().sellIn);
+        assertEquals(4 - 2, firstItem().quality);
+    }
+
+    @Test
+    public void conjured_items_degrade_in_quality_twice_as_fast_as_normal_items_even_when_the_sell_by_date_has_passed() {
+        Item conjuredItem = new ItemBuilder("Conjured").quality(4).sellIn(-1).build();
+        app.add(conjuredItem);
+
+        app.updateInventory();
+
+        assertEquals(4 - 2*2, firstItem().quality);
+    }
+
     private Item firstItem() {
         return app.item(0);
     }

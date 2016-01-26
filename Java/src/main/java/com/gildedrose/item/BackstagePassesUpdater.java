@@ -12,7 +12,7 @@ public class BackstagePassesUpdater extends AbstractItemUpdater {
     public void update() {
         if (item.sellIn > 10) {
             if (item.quality < 50) {
-                changeQualityBy(1);
+                changeQualityBy(+1);
             }
         }
 

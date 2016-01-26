@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.gildedrose.item.AgeBrieUpdater;
 import com.gildedrose.item.BackstagePassesUpdater;
+import com.gildedrose.item.ConjuredUpdater;
 import com.gildedrose.item.GenericItemUpdater;
 import com.gildedrose.item.ItemUpdater;
 import com.gildedrose.item.NullUpdater;
@@ -40,6 +41,7 @@ class GildedRose {
         itemUpdaters.put("Sulfuras, Hand of Ragnaros", new NullUpdater(item));
         itemUpdaters.put("Backstage passes to a TAFKAL80ETC concert", new BackstagePassesUpdater(item));
         itemUpdaters.put("Aged Brie", new AgeBrieUpdater(item));
+        itemUpdaters.put("Conjured", new ConjuredUpdater(item));
 
         ItemUpdater updater = itemUpdaters.get(item.name);
         if (updater != null) {
