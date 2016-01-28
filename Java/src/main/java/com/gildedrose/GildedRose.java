@@ -12,6 +12,11 @@ import com.gildedrose.item.ItemUpdater;
 import com.gildedrose.item.NullUpdater;
 
 class GildedRose {
+    private static final String CONJURED = "Conjured";
+    private static final String AGED_BRIE = "Aged Brie";
+    private static final String BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT = "Backstage passes to a TAFKAL80ETC concert";
+    private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+
     private List<Item> items;
 
     public GildedRose() {
@@ -38,10 +43,10 @@ class GildedRose {
 
     private void update(Item item) {
         HashMap<String, ItemUpdater> updaters = new HashMap<>();
-        updaters.put("Sulfuras, Hand of Ragnaros", new NullUpdater(item));
-        updaters.put("Backstage passes to a TAFKAL80ETC concert", new BackstagePassesUpdater(item));
-        updaters.put("Aged Brie", new AgedBrieUpdater(item));
-        updaters.put("Conjured", new ConjuredUpdater(item));
+        updaters.put(SULFURAS, new NullUpdater(item));
+        updaters.put(BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT, new BackstagePassesUpdater(item));
+        updaters.put(AGED_BRIE, new AgedBrieUpdater(item));
+        updaters.put(CONJURED, new ConjuredUpdater(item));
 
         ItemUpdater updater = getFrom(updaters, item.name, new GenericItemUpdater(item));
         updater.update();
