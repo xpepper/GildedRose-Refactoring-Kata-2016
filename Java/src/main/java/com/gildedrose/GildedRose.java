@@ -1,15 +1,10 @@
 package com.gildedrose;
 
+import com.gildedrose.item.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.gildedrose.item.AgedBrieUpdater;
-import com.gildedrose.item.BackstagePassesUpdater;
-import com.gildedrose.item.ConjuredUpdater;
-import com.gildedrose.item.GenericItemUpdater;
-import com.gildedrose.item.ItemUpdater;
-import com.gildedrose.item.NullUpdater;
 
 class GildedRose {
     private static final String CONJURED = "Conjured";
@@ -17,10 +12,10 @@ class GildedRose {
     private static final String BACKSTAGE_PASSES_TO_A_TAFKAL80ETC_CONCERT = "Backstage passes to a TAFKAL80ETC concert";
     private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
 
-    private List<Item> items;
+    private final List<Item> items;
 
     public GildedRose() {
-        this(new ArrayList<Item>());
+        this(new ArrayList<>());
     }
 
     public GildedRose(List<Item> items) {
@@ -53,11 +48,7 @@ class GildedRose {
     }
 
     private ItemUpdater getFrom(HashMap<String, ItemUpdater> itemUpdaters, String key, ItemUpdater fallbackUpdater) {
-        ItemUpdater updater = itemUpdaters.get(key);
-        if (updater == null) {
-            updater = fallbackUpdater;
-        }
-        return updater;
+        return itemUpdaters.getOrDefault(key, fallbackUpdater);
     }
 
 }
